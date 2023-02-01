@@ -27,6 +27,4 @@ yarn-error.log*
 .idea
 
 # img
-img/
-optimg/
-fonts/
+app/assets/
