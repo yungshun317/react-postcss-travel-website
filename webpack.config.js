@@ -7,5 +7,17 @@ module.exports = {
         path: path.resolve(__dirname, 'app')
     },
     mode: 'development',
-    watch: true
+    watch: true,
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [
+                    "style-loader",
+                    { loader: "css-loader", options: { url: false } },
+                    { loader: "postcss-loader", options: { postcssOptions: { plugins: postCSSPlugins } } }
+                ]
+            }
+        ]
+    }
 }
