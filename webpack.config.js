@@ -1,5 +1,11 @@
 const path = require('path');
 
+postCSSPlugins = [
+    require("postcss-simple-vars"),
+    require("postcss-nested"),
+    require("autoprefixer")
+]
+
 module.exports = {
     entry: './app/assets/scripts/App.js',
     output: {
