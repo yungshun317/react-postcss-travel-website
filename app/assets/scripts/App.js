@@ -1,4 +1,5 @@
 import '../styles/styles.css';
+import Person from './modules/Person';
 
 if (module.hot) {
     module.hot.accept();
@@ -26,6 +27,7 @@ var jane = {
 john.greet();
  */
 
+/*
 function Person(fullName, favColor) {
     this.name = fullName;
     this.favoriteColor = favColor;
@@ -33,9 +35,18 @@ function Person(fullName, favColor) {
         console.log("Hello, my name is " + this.name + " and my favorite color is " + this.favoriteColor + ".");
     }
 }
+*/
+
+class Adult extends Person {
+    payTaxes() {
+        console.log(this.name + " now owes zero taxes.");
+    }
+}
 
 let john = new Person("John Doe", "blue");
 john.greet();
 
-let jane = new Person("Jane Smith", "green");
+// let jane = new Person("Jane Smith", "green");
+let jane = new Adult("Jane Smith", "green");
 jane.greet();
+jane.payTaxes();
