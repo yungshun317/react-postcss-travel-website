@@ -1,5 +1,8 @@
 import '../styles/styles.css';
-import Person from './modules/Person';
+// import Person from './modules/Person';
+import MobileMenu from './modules/MobileMenu';
+
+let mobileMenu = new MobileMenu();
 
 if (module.hot) {
     module.hot.accept();
@@ -37,6 +40,8 @@ function Person(fullName, favColor) {
 }
 */
 
+/*
+// Inheritance
 class Adult extends Person {
     payTaxes() {
         console.log(this.name + " now owes zero taxes.");
@@ -50,3 +55,4 @@ john.greet();
 let jane = new Adult("Jane Smith", "green");
 jane.greet();
 jane.payTaxes();
+ */
