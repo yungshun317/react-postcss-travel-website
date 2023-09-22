@@ -15,20 +15,27 @@ class RevealOnScroll {
     calcCaller() {
         console.log("Scroll function ran.");
         this.itemsToReveal.forEach(el => {
-            this.calculateIfScrolledTo(el);
+            if (el.isRevealed == false) {
+                this.calculateIfScrolledTo(el);
+            }
         })
     }
 
     calculateIfScrolledTo(el) {
         // console.log(el.getBoundingClientRect().top);
+        console.log("Element was calculated.");
         let scrollPercent = (el.getBoundingClientRect().top / window.innerHeight) * 100;
         if (scrollPercent < 75) {
             el.classList.add("reveal-item--is-visible");
+            el.isRevealed = true;
         }
     }
 
     hideInitially() {
-        this.itemsToReveal.forEach(el => el.classList.add("reveal-item"));
+        this.itemsToReveal.forEach(el => {
+            el.classList.add("reveal-item");
+            el.isRevealed = false;
+        });
     }
 }
 
