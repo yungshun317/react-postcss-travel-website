@@ -28,6 +28,9 @@ class RevealOnScroll {
         if (scrollPercent < 75) {
             el.classList.add("reveal-item--is-visible");
             el.isRevealed = true;
+            if (el.isLastItem) {
+                window.removeEventListener("scroll", this.scrollThrottle);
+            }
         }
     }
 
@@ -36,6 +39,7 @@ class RevealOnScroll {
             el.classList.add("reveal-item");
             el.isRevealed = false;
         });
+        this.itemsToReveal[this.itemsToReveal.length - 1].isLastItem = true;
     }
 }
 
