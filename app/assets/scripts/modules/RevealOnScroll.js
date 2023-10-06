@@ -2,8 +2,8 @@ import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 
 class RevealOnScroll {
-    constructor() {
-        this.itemsToReveal = document.querySelectorAll(".feature-item");
+    constructor(els) {
+        this.itemsToReveal = els;
         this.browserHeight = window.innerHeight;
         this.hideInitially();
         this.scrollThrottle = throttle(this.calcCaller, 200).bind(this);
