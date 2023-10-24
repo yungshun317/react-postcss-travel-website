@@ -47,11 +47,17 @@ if (currentTask === "dev") {
 
 if (currentTask === "build") {
     config.output = {
-        filename: 'bundled.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: '[name].[chunkhash].js',
+        chunkFilename: "[name].[chunkhash].js",
+        path: path.resolve(__dirname, 'dist'),
+        clean: true
     };
 
     config.mode = 'production';
+
+    config.optimization = {
+        splitChunks: { chunks: "all" }
+    };
 }
 
 module.exports = config;
