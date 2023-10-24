@@ -1,3 +1,4 @@
+const currentTask = process.env.npm_lifecycle_event;
 const path = require('path');
 
 postCSSPlugins = [
@@ -9,23 +10,8 @@ postCSSPlugins = [
     require("autoprefixer")
 ]
 
-module.exports = {
+let config = {
     entry: './app/assets/scripts/App.js',
-    output: {
-        filename: 'bundled.js',
-        path: path.resolve(__dirname, 'app')
-    },
-    devServer: {
-      watchFiles: [ "app/**/*.html" ],
-      static: {
-          directory: path.join(__dirname, "app"),
-          watch: false
-      },
-      hot: true,
-      port: 3000
-    },
-    mode: 'development',
-    // watch: true,
     module: {
         rules: [
             {
@@ -39,3 +25,33 @@ module.exports = {
         ]
     }
 }
+
+if (currentTask === "dev") {
+    config.output = {
+        filename: 'bundled.js',
+        path: path.resolve(__dirname, 'app')
+    };
+
+    config.devServer = {
+        watchFiles: [ "app/**/*.html" ],
+        static: {
+            directory: path.join(__dirname, "app"),
+            watch: false
+        },
+        hot: true,
+        port: 3000
+    };
+
+    config.mode = 'development';
+}
+
+if (currentTask === "build") {
+    config.output = {
+        filename: 'bundled.js',
+        path: path.resolve(__dirname, 'dist')
+    };
+
+    config.mode = 'production';
+}
+
+module.exports = config;
