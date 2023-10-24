@@ -1,5 +1,6 @@
 const currentTask = process.env.npm_lifecycle_event;
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 postCSSPlugins = [
     require("postcss-import"),
@@ -10,23 +11,26 @@ postCSSPlugins = [
     require("autoprefixer")
 ]
 
+let cssConfig = {
+    test: /\.css$/i,
+    use: [
+        { loader: "css-loader", options: { url: false } },
+        { loader: "postcss-loader", options: { postcssOptions: { plugins: postCSSPlugins } } }
+    ]
+}
+
 let config = {
     entry: './app/assets/scripts/App.js',
     module: {
         rules: [
-            {
-                test: /\.css$/i,
-                use: [
-                    "style-loader",
-                    { loader: "css-loader", options: { url: false } },
-                    { loader: "postcss-loader", options: { postcssOptions: { plugins: postCSSPlugins } } }
-                ]
-            }
+            cssConfig
         ]
     }
 }
 
 if (currentTask === "dev") {
+    cssConfig.use.unshift("style-loader");
+
     config.output = {
         filename: 'bundled.js',
         path: path.resolve(__dirname, 'app')
@@ -46,6 +50,8 @@ if (currentTask === "dev") {
 }
 
 if (currentTask === "build") {
+    cssConfig.use.unshift(MiniCssExtractPlugin.loader);
+
     config.output = {
         filename: '[name].[chunkhash].js',
         chunkFilename: "[name].[chunkhash].js",
@@ -58,6 +64,8 @@ if (currentTask === "build") {
     config.optimization = {
         splitChunks: { chunks: "all" }
     };
+
+    config.plugins = [ new MiniCssExtractPlugin({ filename: "styles.[chunkhash].css" }) ];
 }
 
 module.exports = config;
