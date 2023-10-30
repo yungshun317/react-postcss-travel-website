@@ -4,6 +4,15 @@ import MobileMenu from './modules/MobileMenu';
 import RevealOnScroll from './modules/RevealOnScroll';
 import StickyHeader from './modules/StickyHeader';
 // import Modal from './modules/Modal';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import MyReactComponent from "./modules/MyReactComponent";
+
+ReactDOM.createRoot(document.querySelector("#my-react-component")).render(
+    <React.StrictMode>
+        <MyReactComponent />
+    </React.StrictMode>
+);
 
 let mobileMenu = new MobileMenu();
 new RevealOnScroll(document.querySelectorAll('.feature-item'), 75);
